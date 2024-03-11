@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun May  8 21:01:15 2022
+Created on Sun Mar 10 23:17:57 2024
 
-@author: siddhardhan
+@author: Admin
 """
+
 
 import pickle
 import streamlit as st
+#import streamlit_option_menu
 from streamlit_option_menu import option_menu
 
 
@@ -17,8 +19,6 @@ diabetes_model = pickle.load(open("Trained_model_Diabetes_final.sav", 'rb'))
 heart_disease_model = pickle.load(open("heart_disease_model.sav", 'rb'))
 
 parkinsons_model = pickle.load(open("parkinsons_model.sav", 'rb'))
-
-
 
 # sidebar for navigation
 with st.sidebar:
@@ -38,42 +38,35 @@ if (selected == 'Diabetes Prediction'):
     # page title
     st.title('Diabetes Prediction using ML')
     
-    
     # getting the input data from the user
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        Pregnancies = st.text_input('Number of Pregnancies')
+        age = st.text_input('Enter your Age')
         
     with col2:
-        Glucose = st.text_input('Glucose Level')
+        hypertension = st.text_input('hypertension')
     
     with col3:
-        BloodPressure = st.text_input('Blood Pressure value')
+        heart_disease = st.text_input('heart_disease')
     
     with col1:
-        SkinThickness = st.text_input('Skin Thickness value')
+        bmi = st.text_input('bmi value')
     
     with col2:
-        Insulin = st.text_input('Insulin Level')
+        HbA1c_level = st.text_input('HbA1c_level')
     
     with col3:
-        BMI = st.text_input('BMI value')
+        blood_glucose_level = st.text_input('blood_glucose_level')
     
-    with col1:
-        DiabetesPedigreeFunction = st.text_input('Diabetes Pedigree Function value')
-    
-    with col2:
-        Age = st.text_input('Age of the Person')
-    
-    
+
     # code for Prediction
     diab_diagnosis = ''
     
     # creating a button for Prediction
     
     if st.button('Diabetes Test Result'):
-        diab_prediction = diabetes_model.predict([[Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
+        diab_prediction = diabetes_model.predict([[age,hypertension,heart_disease,bmi,HbA1c_level,blood_glucose_level]])
         
         if (diab_prediction[0] == 1):
           diab_diagnosis = 'The person is diabetic'
@@ -81,10 +74,8 @@ if (selected == 'Diabetes Prediction'):
           diab_diagnosis = 'The person is not diabetic'
         
     st.success(diab_diagnosis)
-
-
-
-
+    
+    
 # Heart Disease Prediction Page
 if (selected == 'Heart Disease Prediction'):
     
@@ -149,10 +140,9 @@ if (selected == 'Heart Disease Prediction'):
           heart_diagnosis = 'The person does not have any heart disease'
         
     st.success(heart_diagnosis)
-        
     
     
-
+    
 # Parkinson's Prediction Page
 if (selected == "Parkinsons Prediction"):
     
@@ -162,46 +152,46 @@ if (selected == "Parkinsons Prediction"):
     col1, col2, col3, col4, col5 = st.columns(5)  
     
     with col1:
-        fo = st.text_input('MDVP Fo(Hz)')
+        fo = st.text_input('MDVP:Fo(Hz)')
         
     with col2:
-        fhi = st.text_input('MDVP Fhi(Hz)')
+        fhi = st.text_input('MDVP:Fhi(Hz)')
         
     with col3:
-        flo = st.text_input('MDVP Flo(Hz)')
+        flo = st.text_input('MDVP:Flo(Hz)')
         
     with col4:
-        Jitter_percent = st.text_input('MDVP Jitter(%)')
+        Jitter_percent = st.text_input('MDVP:Jitter(%)')
         
     with col5:
-        Jitter_Abs = st.text_input('MDVP Jitter(Abs)')
+        Jitter_Abs = st.text_input('MDVP:Jitter(Abs)')
         
     with col1:
-        RAP = st.text_input('MDVP RAP')
+        RAP = st.text_input('MDVP:RAP')
         
     with col2:
-        PPQ = st.text_input('MDVP PPQ')
+        PPQ = st.text_input('MDVP:PPQ')
         
     with col3:
-        DDP = st.text_input('Jitter DDP')
+        DDP = st.text_input('Jitter:DDP')
         
     with col4:
-        Shimmer = st.text_input('MDVP Shimmer')
+        Shimmer = st.text_input('MDVP:Shimmer')
         
     with col5:
-        Shimmer_dB = st.text_input('MDVP Shimmer(dB)')
+        Shimmer_dB = st.text_input('MDVP:Shimmer(dB)')
         
     with col1:
-        APQ3 = st.text_input('Shimmer APQ3')
+        APQ3 = st.text_input('Shimmer:APQ3')
         
     with col2:
-        APQ5 = st.text_input('Shimmer APQ5')
+        APQ5 = st.text_input('Shimmer:APQ5')
         
     with col3:
-        APQ = st.text_input('MDVP APQ')
+        APQ = st.text_input('MDVP:APQ')
         
     with col4:
-        DDA = st.text_input('Shimmer DDA')
+        DDA = st.text_input('Shimmer:DDA')
         
     with col5:
         NHR = st.text_input('NHR')
@@ -242,19 +232,3 @@ if (selected == "Parkinsons Prediction"):
           parkinsons_diagnosis = "The person does not have Parkinson's disease"
         
     st.success(parkinsons_diagnosis)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
